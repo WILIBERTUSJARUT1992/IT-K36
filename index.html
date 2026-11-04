@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BL4CK DOOR V5</title>
+    <!-- Tambahkan gaya atau pustaka frontend Anda di sini -->
+</head>
+<body>
+
+    <!-- Bagian UI Anda -->
+    <div id="app">
+        <h1>BL4CK DOOR V5</h1>
+        <!-- Form atau elemen interaktif -->
+    </div>
+
+    <script>
+        // URL Backend Cloudflare Worker Anda yang sudah terhubung otomatis
+        const API_BASE = "https://late-river-f83b.wilibertusjarut124.workers.dev";
+
+        // Contoh fungsi untuk mengecek status kesehatan API (Health Check)
+        async function checkHealth() {
+            try {
+                const response = await fetch(`${API_BASE}/api/health`);
+                const data = await response.json();
+                console.log("Status Backend:", data);
+            } catch (error) {
+                console.error("Gagal terhubung ke backend:", error);
+            }
+        }
+
+        // Contoh fungsi untuk cek URL
+        async function checkUrl(targetUrl) {
+            try {
+                const response = await fetch(`${API_BASE}/api/url-check`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ url: targetUrl })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        // Contoh fungsi untuk cek Email (HIBP)
+        async function checkEmail(targetEmail) {
+            try {
+                const response = await fetch(`${API_BASE}/api/email-check`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: targetEmail })
+                });
+                return await response.json();
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        // Jalankan saat halaman dimuat
+        checkHealth();
+    </script>
+</body>
+</html>
